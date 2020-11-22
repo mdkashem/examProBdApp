@@ -14,6 +14,18 @@ import examPro.com.dao.StatusDAO;
 import examPro.com.dao.StatusDAOImplements;
 import examPro.com.dao.userDAO;
 import examPro.com.dao.userDAOImplement;
+import examPro.com.dao.subject.AnswerDAO;
+import examPro.com.dao.subject.AnswerDAOImpl;
+import examPro.com.dao.subject.ChoiceDAO;
+import examPro.com.dao.subject.ChoiceDAOImpl;
+import examPro.com.dao.subject.QuestionDAO;
+import examPro.com.dao.subject.QuestionDAOImpl;
+import examPro.com.dao.subject.SubjectDAO;
+import examPro.com.dao.subject.SubjectDAOImpl;
+import examPro.com.dao.subject.TopicDAO;
+import examPro.com.dao.subject.TopicDAOImpl;
+import examPro.com.dao.subject.choose_optionDAO;
+import examPro.com.dao.subject.choose_optionDAOImpl;
 
 public class DAOUtilities {
 	private static final String CONNECTION_USERNAME = System.getenv("dbUserName"); //accessing the system environment variable for user Name
@@ -68,5 +80,23 @@ public class DAOUtilities {
 	}
 	public static AccountDAO getAccountDAO() {
 		return new AccountDAOImpl();
+	}
+	public static SubjectDAO getSubjectDAO() {
+		return new SubjectDAOImpl();
+	}
+	public static TopicDAO getTopicDAO() {
+		return new TopicDAOImpl();
+	}
+	public static QuestionDAO getQuestionDAO() {
+		return new QuestionDAOImpl();
+	}
+	public static ChoiceDAO getChoiceDAO() {
+		return new ChoiceDAOImpl();
+	}
+	public static AnswerDAO getAnswerDAO() {
+		return new AnswerDAOImpl();
+	}
+	public static choose_optionDAO getOptionDAO() {
+		return new choose_optionDAOImpl();
 	}
 }

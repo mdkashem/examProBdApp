@@ -13,6 +13,7 @@ public interface SubjectDAO {
 		public Subject getSubjectById(int id);
 		public boolean updateSubject(Subject sub);
 		public boolean deleteSubjectByID(int id);
+		public Subject findSubjectByName(String sub);
 
 }
 

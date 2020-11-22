@@ -3,13 +3,19 @@ package examPro.com.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
+
+import javax.security.auth.Subject;
+
 import java.sql.Date;
 import java.sql.SQLException;
 
+import examPro.com.dao.subject.Quiz;
 import examPro.com.model.Account;
 import examPro.com.model.AccountStatus;
 import examPro.com.model.AccountType;
 import examPro.com.model.Role;
+import examPro.com.services.UserRoleService;
 import examPro.com.utilities.DAOUtilities;
 
 public class Tester {
@@ -24,11 +30,22 @@ public class Tester {
        String result = sdf.format(cal.getTime());
         System.out.println( result);
 		*/
-		DAOUtilities.getRoleDAO().addRole(new Role(1, "Admin"));
+		//DAOUtilities.getRoleDAO().addRole(new Role(1, "Admin"));
 		//DAOUtilities.getAccountTypeDAO().addAccountType(new AccountType(1, "regular"));
 	///	DAOUtilities.getStatusDAO().addStatus(new AccountStatus(1,"pending"));
 		//Date date = new Date(System.currentTimeMillis());
 		//DAOUtilities.getAccountDAO().addAccount(new Account(1,3.50,  date, 1,1));
+	//Object sub =	DAOUtilities.getSubjectDAO().findSubjectByName("JAVA");
+	
+	//System.out.println(sub);
+	//System.out.print(DAOUtilities.getQuestionDAO().getAllQuestionByTopicId(6));
+		UserRoleService userRole = new UserRoleService();
+		List<Quiz> list = userRole.generateQuiz("JAVA", "Core Java", 3);
+		for (int i =0; i<list.size(); i++) {
+			System.out.println(list.get(i));
+			
+		}
+		
 		
 	}
 

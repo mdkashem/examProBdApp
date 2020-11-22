@@ -1,6 +1,4 @@
-
 package examPro.com.dao.subject;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -8,21 +6,18 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import examPro.com.model.subject.Subject;
+import examPro.com.model.subject.Choice;
 import examPro.com.utilities.DAOUtilities;
-
-public class SubjectDAOImpl implements SubjectDAO{
-
+public class ChoiceDAOImpl implements ChoiceDAO{
 	Connection connection = null;
 	PreparedStatement stmt = null;
 	@Override
-	public boolean addSubject(Subject sub) {
+	public boolean addChoise(Choice choice) {
 		try {
 			connection = DAOUtilities.getConnection();
-			String sql = "INSERT INTO subjects(sub_id, sub_name) VALUES(default, ?)";
+			String sql = "INSERT INTO choices(choice_id, choice) VALUES(default, ?)";
 			stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS );
-			stmt.setString(1, sub.getSubject());
-			
+			stmt.setString(1, choice.getChoice());
 			if(stmt.executeUpdate()!=0) {
 				return true;
 			}else
@@ -37,15 +32,14 @@ public class SubjectDAOImpl implements SubjectDAO{
 			closeResources();
 		}
 	}
-	
 
 	@Override
-	public List<Subject> getAllSubject() {
-		List<Subject> subjects = new ArrayList<Subject>();
+	public List<Choice> getAllChoice() {
+		List<Choice> choices = new ArrayList<Choice>();
 
 		try {
 			connection = DAOUtilities.getConnection();	// Get our database connection from the manager
-			String sql = "SELECT * FROM subjects";			// Our SQL query
+			String sql = "SELECT * FROM choices";			// Our SQL query
 			//String sql = "SELECT * FROM Users";			// Our SQL query
 			stmt = connection.prepareStatement(sql);	// Creates the prepared statement from the query
 			
@@ -54,11 +48,11 @@ public class SubjectDAOImpl implements SubjectDAO{
 			// So long as the ResultSet actually contains results...
 			while (rs.next()) {
 				// We need to populate a User object with info for each row from our query result
-				Subject sub = new Subject(Integer.parseInt(rs.getString("sub_id")), rs.getString("sub_name"));
+				Choice choice = new Choice(Integer.parseInt(rs.getString("choice_id")), rs.getString("choice"));
 				// Each variable in our User object maps to a column in a row from our results.
 			
 				// Finally we add it to the list of Book objects returned by this query.
-				subjects.add(sub);
+				choices.add(choice);
 				
 			}
 			
@@ -73,47 +67,46 @@ public class SubjectDAOImpl implements SubjectDAO{
 		}
 		
 		// return the list of users objects populated by the DB.
-		return subjects;
-	}
-	/****
-	 * the findLastSubjectId method add a subject and return the id of the inserted subject.
-	 */
-	
-	@Override
-	public int findLastSubjectId(Subject sub) {
-          int ID = -1;
-		
-		try {
-			connection = DAOUtilities.getConnection();
-			String sql = "INSERT INTO subjects(sub_id, sub_name) VALUES(default, ?) RETURNING sub_id";
-			stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS );
-			
-			stmt.setString(1, sub.getSubject());
-			int update = stmt.executeUpdate();
-					 ResultSet rs = stmt.getGeneratedKeys();
-					 if (rs != null && rs.next()) {
-					  ID = rs.getInt(1);
-					  return ID;
-					 }else {
-						 return ID;
-					 }		
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return ID;
-			
-		}finally {
-			
-			closeResources();
-		}
+		return choices;
 	}
 
 	@Override
-	public Subject getSubjectById(int id) {
-		Subject sub = null;
+	public int findLastChoiceId(Choice choice) {
+		 int ID = -1;
+			
+			try {
+				connection = DAOUtilities.getConnection();
+				String sql = "INSERT INTO choices(choice_id, choice) VALUES(default, ?) RETURNING choice_id";
+				stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS );
+				
+				stmt.setString(1, choice.getChoice());
+				
+				int update = stmt.executeUpdate();
+						 ResultSet rs = stmt.getGeneratedKeys();
+						 if (rs != null && rs.next()) {
+						  ID = rs.getInt(1);
+						  return ID;
+						 }else {
+							 return ID;
+						 }		
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return ID;
+				
+			}finally {
+				
+				closeResources();
+			}
+	}
+
+	@Override
+	public Choice getChoiceById(int id) {
+		Choice choice = null;
+
 		try {
 			connection = DAOUtilities.getConnection();
-			String sql = "SELECT * FROM subjects WHERE sub_id = ?";
+			String sql = "SELECT * FROM choices WHERE choice_id = ?";
 			stmt = connection.prepareStatement(sql);
 			
 			stmt.setInt(1, id);
@@ -121,7 +114,7 @@ public class SubjectDAOImpl implements SubjectDAO{
 			ResultSet rs = stmt.executeQuery();
 
 			if (rs.next()) {
-				sub = new Subject(rs.getInt("sub_id"), rs.getString("sub_name"));
+				choice = new Choice(rs.getInt("choice_id"), rs.getString("choice"));
 				
 			}
 			
@@ -131,42 +124,18 @@ public class SubjectDAOImpl implements SubjectDAO{
 			closeResources();
 		}
 		
-		return sub;
-	}
-	@Override
-	public Subject findSubjectByName(String name) {
-		Subject sub = null;
-		try {
-			connection = DAOUtilities.getConnection();
-			String sql = "SELECT * FROM subjects WHERE sub_name = ?";
-			stmt = connection.prepareStatement(sql);
-			stmt.setString(1, name);
-			
-			ResultSet rs = stmt.executeQuery();
-
-			if (rs.next()) {
-				sub = new Subject(rs.getInt("sub_id"), rs.getString("sub_name"));
-				
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			closeResources();
-		}
-		
-		return sub;
-		
+		return choice;
 	}
 
 	@Override
-	public boolean updateSubject(Subject sub) {
+	public boolean updateChoice(Choice choice) {
 		try {
 			connection = DAOUtilities.getConnection();
-			String sql = "UPDATE subjects SET sub_name=?";
+			String sql = "UPDATE choices SET choice=?";
 			stmt = connection.prepareStatement(sql);
 			
-			stmt.setString(1, sub.getSubject());
+			stmt.setString(1, choice.getChoice());
+			
 			if (stmt.executeUpdate() != 0)
 				return true;
 			else
@@ -181,10 +150,10 @@ public class SubjectDAOImpl implements SubjectDAO{
 	}
 
 	@Override
-	public boolean deleteSubjectByID(int id) {
+	public boolean deleteChoiceByID(int id) {
 		try {
 			connection = DAOUtilities.getConnection();
-			String sql = "DELETE FROM subjects WHERE accountid = ?";
+			String sql = "DELETE FROM choices WHERE choice_id = ?";
 			stmt = connection.prepareStatement(sql);
 			
 			stmt.setInt(1, id);
@@ -205,26 +174,23 @@ public class SubjectDAOImpl implements SubjectDAO{
 		}
 	}
 	// Closing all resources to prevent memory leaks. 
-	// Ideally, you really want to close them in the reverse-order you open them
-		private void closeResources() {
-			try {
-				if (stmt != null)
-					stmt.close();
-			} catch (SQLException e) {
-				System.out.println("Could not close statement!");
-				e.printStackTrace();
-			}
-			
-			try {
-				if (connection != null)
-					connection.close();
-			} catch (SQLException e) {
-				System.out.println("Could not close connection!");
-				e.printStackTrace();
-			}
-		}
-
-
-		
+		// Ideally, you really want to close them in the reverse-order you open them
+				private void closeResources() {
+					try {
+						if (stmt != null)
+							stmt.close();
+					} catch (SQLException e) {
+						System.out.println("Could not close statement!");
+						e.printStackTrace();
+					}
+					
+					try {
+						if (connection != null)
+							connection.close();
+					} catch (SQLException e) {
+						System.out.println("Could not close connection!");
+						e.printStackTrace();
+					}
+				}
 
 }

@@ -5,7 +5,7 @@ public interface userDAO {
 	public List<User> getAllUser();
 	
 	public User getUserByName(String name);
-	public List<User> getUserByEmail(String email);
+	public User getUserByEmail(String email);
 	public User getUserByID(int id);
 	public User getUserByAccountId(int accId);
 	public boolean addUser(User user);

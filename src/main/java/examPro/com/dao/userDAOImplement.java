@@ -63,18 +63,18 @@ public class userDAOImplement implements userDAO{
 	}
 
 	public User getUserByName(String name) {
-		User user=null;
+		User user = null;
 
 		try {
 			connection = DAOUtilities.getConnection();
 			String sql = "SELECT * FROM Users WHERE email LIKE ?";
 			stmt = connection.prepareStatement(sql);
 			// This command populate the 1st '?' with the title and wildcards, between ' '
-						stmt.setString(1, "%" + name + "%");
-			ResultSet rs =stmt.executeQuery();
-			
-			while(rs.next()){
-				user=new User();
+			stmt.setString(1, "%" + name + "%");
+			ResultSet rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				user = new User();
 				user.setUserId(Integer.parseInt(rs.getString("userId")));
 				user.setEmail(rs.getString("email"));
 				user.setPassword(rs.getString("password"));
@@ -84,14 +84,14 @@ public class userDAOImplement implements userDAO{
 				user.setPhone(rs.getString("phone"));
 				user.setAccountId(Integer.parseInt(rs.getString("accountId")));
 				user.setRoleId(Integer.parseInt(rs.getString("roleId")));
-				
+
 			}
 			rs.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}finally {
-			// We need to make sure our statements and connections are closed, 
+		} finally {
+			// We need to make sure our statements and connections are closed,
 			// or else we could wind up with a memory leak
 			closeResources();
 		}
@@ -259,10 +259,7 @@ public class userDAOImplement implements userDAO{
 			return null;
 		}
 
-		public List<User> getUserByEmail(String email) {
-			// TODO Auto-generated method stub
-			return null;
-		}
+		
 
 		@Override
 		public User getUserByAccountId(int accId) {
@@ -288,6 +285,44 @@ public class userDAOImplement implements userDAO{
 					user.setAccountId(Integer.parseInt(rs.getString("accountId")));
 					user.setRoleId(Integer.parseInt(rs.getString("roleId")));
 					
+					
+				}
+				rs.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally {
+				// We need to make sure our statements and connections are closed, 
+				// or else we could wind up with a memory leak
+				closeResources();
+			}
+
+			return user;
+		}
+
+		@Override
+		public User getUserByEmail(String email) {
+			User user=null;
+
+			try {
+				connection = DAOUtilities.getConnection();
+				String sql = "SELECT * FROM Users WHERE email = ?";
+				stmt = connection.prepareStatement(sql);
+				// This command populate the 1st '?' with the title and wildcards, between ' '
+							stmt.setString(1, email);
+				ResultSet rs =stmt.executeQuery();
+				
+				while(rs.next()){
+					user=new User();
+					user.setUserId(Integer.parseInt(rs.getString("userId")));
+					user.setEmail(rs.getString("email"));
+					user.setPassword(rs.getString("password"));
+					user.setfName(rs.getString("firstName"));
+					user.setlName(rs.getString("lastName"));
+					user.setDOB(rs.getString("DOB"));
+					user.setPhone(rs.getString("phone"));
+					user.setAccountId(Integer.parseInt(rs.getString("accountId")));
+					user.setRoleId(Integer.parseInt(rs.getString("roleId")));
 					
 				}
 				rs.close();
