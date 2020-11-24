@@ -17,7 +17,7 @@ import examPro.com.model.AccountType;
 import examPro.com.model.Role;
 import examPro.com.services.UserRoleService;
 import examPro.com.utilities.DAOUtilities;
-
+import org.apache.log4j.Logger;
 public class Tester {
 	private enum route  {
 		apple;
@@ -38,13 +38,9 @@ public class Tester {
 	//Object sub =	DAOUtilities.getSubjectDAO().findSubjectByName("JAVA");
 	
 	//System.out.println(sub);
-	//System.out.print(DAOUtilities.getQuestionDAO().getAllQuestionByTopicId(6));
-		UserRoleService userRole = new UserRoleService();
-		List<Quiz> list = userRole.generateQuiz("JAVA", "Core Java", 3);
-		for (int i =0; i<list.size(); i++) {
-			System.out.println(list.get(i));
-			
-		}
+	//
+		Logger logger = Logger.getLogger(Tester.class);
+		logger.debug("Logger Works! (Log4j 1)");
 		
 		
 	}
