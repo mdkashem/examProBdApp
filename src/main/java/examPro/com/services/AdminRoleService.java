@@ -83,7 +83,7 @@ public class AdminRoleService {
 	 */
 	public boolean createNewUser(String email, String password, String fName, String lName, String DOB, String phone,
 			Date date) {
-		if (DAOUtilities.getUserDAO().getUserByEmail("kasem_sea@yahoo.com") == null) {
+		if (DAOUtilities.getUserDAO().getUserByEmail(email) == null) {
 
 			int newAccount_number = DAOUtilities.getAccountDAO().findLastAccountId(new Account(1, 0.00, date, 1, 1));
 			boolean result = DAOUtilities.getUserDAO()
@@ -91,5 +91,39 @@ public class AdminRoleService {
 			return result;
 		}
 		return false;
+	}
+
+	/**
+	 * this updateUser method update user information. if the user provide new email
+	 * address then this method create new user because only one account per email
+	 * address is allowed. 
+	 * 
+	 * @param email
+	 * @param password
+	 * @param fName
+	 * @param lName
+	 * @param DOB
+	 * @param phone
+	 * @param date
+	 * @return string
+	 */
+	public String updateUser(String email, String password, String fName, String lName, String DOB, String phone,
+			Date date) {
+		User user = DAOUtilities.getUserDAO().getUserByEmail(email);
+		if (user == null) {
+
+			int newAccount_number = DAOUtilities.getAccountDAO().findLastAccountId(new Account(1, 0.00, date, 1, 1));
+			boolean result = DAOUtilities.getUserDAO()
+					.addUser(new User(1, email, password, fName, lName, DOB, phone, newAccount_number, 2));
+			return "New User has been created.";
+		} else {
+			user.setPassword(password);
+			user.setfName(fName);
+			user.setlName(lName);
+			user.setDOB(DOB);
+			user.setPhone(phone);
+			DAOUtilities.getUserDAO().updateUser(user);
+			return "User informations has been updated";
+		}
 	}
 }

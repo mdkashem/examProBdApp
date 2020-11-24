@@ -12,7 +12,6 @@ import examPro.com.utilities.DAOUtilities;
 public class AnswerDAOImpl implements AnswerDAO{
 	Connection connection = null;
 	PreparedStatement stmt = null;
-	@Override
 	public boolean addAnswer(Answer answer) {
 		try {
 			connection = DAOUtilities.getConnection();
@@ -36,7 +35,6 @@ public class AnswerDAOImpl implements AnswerDAO{
 		}
 	}
 
-	@Override
 	public List<Answer> getAllAnswer() {
 		List<Answer> answers = new ArrayList<Answer>();
 
@@ -73,7 +71,6 @@ public class AnswerDAOImpl implements AnswerDAO{
 		return answers;
 	}
 
-	@Override
 	public int findLastAnswerId(Answer answer) {
 		 int ID = -1;
 			
@@ -103,7 +100,6 @@ public class AnswerDAOImpl implements AnswerDAO{
 			}
 	}
 
-	@Override
 	public Answer getAnswerById(int id) {
 		Answer answer = null;
 
@@ -130,7 +126,6 @@ public class AnswerDAOImpl implements AnswerDAO{
 		return answer;
 	}
 
-	@Override
 	public boolean updateAnswer(Answer answer) {
 		try {
 			connection = DAOUtilities.getConnection();
@@ -152,7 +147,6 @@ public class AnswerDAOImpl implements AnswerDAO{
 		}
 	}
 
-	@Override
 	public boolean deleteAnswerByID(int id) {
 		try {
 			connection = DAOUtilities.getConnection();
@@ -195,7 +189,6 @@ public class AnswerDAOImpl implements AnswerDAO{
 		}
 	}
 
-	@Override
 	public Answer getAnswerByQuestionId(int question_id) {
 		Answer answer = null;
 

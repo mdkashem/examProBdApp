@@ -15,7 +15,6 @@ public class TopicDAOImpl implements TopicDAO {
 	Connection connection = null;
 	PreparedStatement stmt = null;
 
-	@Override
 	public boolean addTopic(Sub_Topic topic) {
 		try {
 			connection = DAOUtilities.getConnection();
@@ -39,7 +38,6 @@ public class TopicDAOImpl implements TopicDAO {
 		}
 	}
 
-	@Override
 	public List<Sub_Topic> getAllTopic() {
 		List<Sub_Topic> topics = new ArrayList<Sub_Topic>();
 
@@ -78,7 +76,6 @@ public class TopicDAOImpl implements TopicDAO {
 		return topics;
 	}
 
-	@Override
 	public int findLastTopicId(Sub_Topic topic) {
 		int ID = -1;
 
@@ -108,7 +105,6 @@ public class TopicDAOImpl implements TopicDAO {
 		}
 	}
 
-	@Override
 	public Sub_Topic getTopicById(int id) {
 		Sub_Topic topic = null;
 
@@ -134,7 +130,6 @@ public class TopicDAOImpl implements TopicDAO {
 
 		return topic;
 	}
-	@Override
 	public Sub_Topic getTopicByName(String sub_topic) {
 		Sub_Topic topic = null;
 
@@ -161,7 +156,6 @@ public class TopicDAOImpl implements TopicDAO {
 		return topic;
 	}
 
-	@Override
 	public boolean updateTopic(Sub_Topic topic) {
 		try {
 			connection = DAOUtilities.getConnection();
@@ -183,7 +177,6 @@ public class TopicDAOImpl implements TopicDAO {
 		}
 	}
 
-	@Override
 	public boolean deleteTopicByID(int id) {
 		try {
 			connection = DAOUtilities.getConnection();

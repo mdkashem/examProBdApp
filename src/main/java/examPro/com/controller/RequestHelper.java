@@ -1,5 +1,6 @@
 package examPro.com.controller;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -11,6 +12,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import examPro.com.dao.subject.Quiz;
 import examPro.com.model.AccountStatus;
 import examPro.com.model.Role;
 import examPro.com.model.User;
@@ -22,7 +27,7 @@ import examPro.com.utilities.DAOUtilities;
 
 public class RequestHelper {
 	static HttpSession session;
-	public static AdminRoleService adminRoleService =new AdminRoleService();
+	public static AdminRoleService adminRoleService = new AdminRoleService();
 	public static UserRoleService userRoleService = new UserRoleService();
 
 	public static Object processGet(HttpServletRequest request, HttpServletResponse response)
@@ -45,7 +50,6 @@ public class RequestHelper {
 					// take subject name and sub topic name from user and generate quiz.
 
 					return userRoleService.generateQuiz("JAVA", "Core Java", 3);
-
 
 				case "/user/all":
 					// response.getWriter().write("To be implemented");
@@ -132,12 +136,25 @@ public class RequestHelper {
 				String phone = request.getParameter("phone");
 				Date date = new Date(System.currentTimeMillis());
 				boolean isCreated = adminRoleService.createNewUser(email, password, fName, lName, DOB, phone, date);
-				if(isCreated== true) {
+				if (isCreated == true) {
 					response.getWriter().write("New user has been created successfully");
-				}else {
+				} else {
 					response.getWriter().write("operation was not completed!!!");
 				}
+
+				break;
+			case "/update":
 				
+				String email_update = request.getParameter("email");
+				String password_update = request.getParameter("password");
+				String fName_update = request.getParameter("fName");
+				String lName_update = request.getParameter("lName");
+				String DOB_update = request.getParameter("date_of_birth");
+				String phone_update = request.getParameter("phone");
+				Date date_update = new Date(System.currentTimeMillis());
+				String isCreated_update = adminRoleService.updateUser(email_update, password_update, fName_update,
+						lName_update, DOB_update, phone_update, date_update);
+				response.getWriter().write(isCreated_update);
 				break;
 			case "/quiz/create":
 				//
@@ -168,7 +185,29 @@ public class RequestHelper {
 		}
 		if (session != null && ((String) session.getAttribute("role")).equalsIgnoreCase("user")) {
 			// this is where regular users activity
-			response.getWriter().write(" You login as a regular user");
+
+			switch (URI) {
+			case "/submit/quiz":
+				// take subject name and sub topic name from user and generate quiz.
+				BufferedReader reader = request.getReader();
+
+				StringBuilder sb = new StringBuilder();
+				String line;
+				while ((line = reader.readLine()) != null) {
+					sb.append(line);
+				}
+
+				String jsonString = sb.toString();
+				ObjectMapper oMapper = new ObjectMapper();
+				Quiz quiz = oMapper.readValue(jsonString, Quiz.class);
+
+				response.getWriter().write(oMapper.writeValueAsString(quiz));
+				response.getWriter().write(" Submit quiz to be implemented!");
+				response.setContentType("application/json");
+				response.setStatus(201);
+				break;
+
+			}
 		}
 	}
 

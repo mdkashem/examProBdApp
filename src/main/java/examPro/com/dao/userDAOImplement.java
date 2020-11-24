@@ -261,7 +261,6 @@ public class userDAOImplement implements userDAO{
 
 		
 
-		@Override
 		public User getUserByAccountId(int accId) {
 			User user=null;
 
@@ -300,7 +299,6 @@ public class userDAOImplement implements userDAO{
 			return user;
 		}
 
-		@Override
 		public User getUserByEmail(String email) {
 			User user=null;
 
