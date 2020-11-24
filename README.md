@@ -37,4 +37,6 @@ This product is a web application intended to require any device that support we
     - to take a exam 
 - POST: /submit/quiz
     - to submit the quiz with the selected answers
+# DATABASE TABLES 
+![](./images/data_table.PNG)
 
