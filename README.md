@@ -47,6 +47,9 @@ This product is a web application intended to require any device that support we
     - to logout 
 ## DATABASE TABLES 
 ![Relational Database Table](./images/data_table.png)
+## Documentation included in the docs folder 
+### If you open the index.html in a browser it should be look like this image bellow:
+![Sample image](./images/documentation.png)
 ### Technologies :
 - JAVA 8
 - postGreSQL 10
