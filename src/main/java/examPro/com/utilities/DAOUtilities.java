@@ -31,13 +31,6 @@ public class DAOUtilities {
 	private static final String CONNECTION_USERNAME = System.getenv("dbUserName"); //accessing the system environment variable for user Name
 	private static final String CONNECTION_PASSWORD =System.getenv("dbPassword");  //accessing the system environment variable for password
 	private static final String URL = System.getenv("dbConnectionString_for_AWS") ;//System.getenv("dbConnectionString"); //accessing the system environment variable for  url
-	/*
-	 *the 3 lines bellow for mySQL connection testing purpose from Maruf web site  
-	 * */
-	   // private static final String CONNECTION_USERNAME = "mtestbd"; //accessing the system environment variable for user Name
-		//private static final String CONNECTION_PASSWORD = "MarufSheikh";  //accessing the system environment variable for password
-		//private static final String URL = "jdbc:mysql://23.29.122.186:3306/m0dELtesT"; 
-	
 	private static Connection connection;
 	
 	public static synchronized Connection getConnection() throws SQLException {
