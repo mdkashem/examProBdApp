@@ -46,7 +46,7 @@ This product is a web application intended to require any device that support we
 - GET: /logout
     - to logout 
 ## DATABASE TABLES 
-![](/images/data_table.PNG)
+![Relational Database Table](./images/data_table.png)
 ### Technologies :
 - JAVA 8
 - postGreSQL 10
