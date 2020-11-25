@@ -51,5 +51,14 @@ This product is a web application intended to require any device that support we
 - JAVA 8
 - postGreSQL 10
 - Maven
+    - Dependencies:
+        - Junit 4.13.1
+        - Jackson 2.11.4
+        - servlet 4
+        - postgreSQL 42.2.14
+        - log4j 1.2.17
+        - JAVA 1.8 
+- Tomcat 8.5
+
 
 
