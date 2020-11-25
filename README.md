@@ -1,4 +1,4 @@
-# examProBdApp
+# examPro API
 ## Introduction
 # 1.1	Purpose: 
 This software is intended for any Organization or Teacher to test their candidates or students’ knowledge of a specific topic such as Java, Python, SQL, General knowledge, English etc. 
@@ -12,7 +12,7 @@ This product is a web application intended to require any device that support we
     - Admin can view list of users
     - Admin can insert/register for  new user
     - admin can update information of any user
-    - admin can search any user by email  
+    - admin can search any user by id 
 
  - User roles:
     - User can login
@@ -45,6 +45,11 @@ This product is a web application intended to require any device that support we
     - to user's information 
 - GET: /logout
     - to logout 
-# DATABASE TABLES 
-![](./images/data_table.PNG)
+## DATABASE TABLES 
+![](/images/data_table.PNG)
+### Technologies :
+- JAVA 8
+- postGreSQL 10
+- Maven
+
 

@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import examPro.com.dao.subject.Quiz;
@@ -35,6 +37,7 @@ public class RequestHelper {
 			throws ServletException, IOException {
 
 		final String URI = request.getRequestURI().replace("/examPro/examApi", "");
+		//final String URI = request.getRequestURI().replace("/examPro-0.0.1-SNAPSHOT/examApi", "");
 		System.out.println(URI);
 
 		if (session == null) {
@@ -106,6 +109,7 @@ public class RequestHelper {
 	public static void processPost(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		final String URI = request.getRequestURI().replace("/examPro/examApi", "");
+		//final String URI = request.getRequestURI().replace("/examPro-0.0.1-SNAPSHOT/examApi", "");
 		System.out.println(URI);
 		if (URI.equalsIgnoreCase("/login")) { // login is done
 			String userName = request.getParameter("email");
@@ -119,6 +123,8 @@ public class RequestHelper {
 				// We can also set session attributes!
 				session.setAttribute("username", userName);
 				session.setAttribute("role", role.getRole());
+				Logger logger = Logger.getLogger(RequestHelper.class);
+				logger.debug("Logger Works! (Log4j 1)");
 			} else {
 				response.getWriter().write("Invalid username");
 			}

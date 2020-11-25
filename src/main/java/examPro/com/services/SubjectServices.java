@@ -2,8 +2,6 @@ package examPro.com.services;
 
 import java.util.List;
 
-
-
 import examPro.com.dao.subject.SubjectDAO;
 import examPro.com.dao.subject.SubjectDAOImpl;
 import examPro.com.model.subject.Subject;
