@@ -12,5 +12,6 @@ public interface QuestionDAO {
 		public boolean updateQuestion(Question ques);
 		public boolean deleteQuestionByID(int id);
 		public List<Question> getAllQuestionByTopicId(int sub_topic_id);
+		public Question getQuestionByQuestion(String question);
 
 }

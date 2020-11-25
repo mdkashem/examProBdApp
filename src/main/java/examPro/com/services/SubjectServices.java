@@ -15,6 +15,6 @@ public class SubjectServices {
 	}
 	
 	public List<Subject> getAllSubject(){
-		return this.getAllSubject();
+		return this.subjects.getAllSubject();
 	}
 }

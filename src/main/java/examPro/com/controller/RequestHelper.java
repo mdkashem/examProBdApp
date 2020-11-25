@@ -19,6 +19,7 @@ import examPro.com.dao.subject.Quiz;
 import examPro.com.model.AccountStatus;
 import examPro.com.model.Role;
 import examPro.com.model.User;
+import examPro.com.model.subject.SubmitedAnswer;
 import examPro.com.services.AdminRoleService;
 import examPro.com.services.SubjectServices;
 import examPro.com.services.UserRoleService;
@@ -51,9 +52,9 @@ public class RequestHelper {
 
 					return userRoleService.generateQuiz("JAVA", "Core Java", 3);
 
-				case "/user/all":
+				case "/user/info":
 					// response.getWriter().write("To be implemented");
-					return "To Be Implemented";
+					return userRoleService.getUserInfo((String) session.getAttribute("username"));
 				case "/logout":
 					// logout working successfully. so it is done
 					request.getSession(false);
@@ -70,10 +71,10 @@ public class RequestHelper {
 
 			} else {
 				switch (URI) {
-				case "/adim":
-					// handleRequest(request, response);
-
-					return "To be implemented";// new SuperPowerService().findAllSuperPowers();
+				case "/user":
+					int id =Integer.parseInt(request.getParameter("id"));
+					
+					return adminRoleService.findUserById(id);// new SuperPowerService().findAllSuperPowers();
 				case "/InsertQuiz":
 					// handleRequest(request, response);
 
@@ -190,6 +191,7 @@ public class RequestHelper {
 			case "/submit/quiz":
 				// take subject name and sub topic name from user and generate quiz.
 				BufferedReader reader = request.getReader();
+				System.out.println(reader.read());
 
 				StringBuilder sb = new StringBuilder();
 				String line;
@@ -198,15 +200,20 @@ public class RequestHelper {
 				}
 
 				String jsonString = sb.toString();
+				System.out.print(jsonString);
 				ObjectMapper oMapper = new ObjectMapper();
-				Quiz quiz = oMapper.readValue(jsonString, Quiz.class);
-
-				response.getWriter().write(oMapper.writeValueAsString(quiz));
-				response.getWriter().write(" Submit quiz to be implemented!");
+				SubmitedAnswer[] answer = oMapper.readValue(jsonString, SubmitedAnswer[].class);
+				
+				//jsonString = oMapper.writerWithDefaultPrettyPrinter().writeValueAsString(answer);
+				float score = userRoleService.getScore(answer, 10.00F);
+				response.getWriter().write(oMapper.writeValueAsString("Your score is : "+score+ "%"));
+			
+				//response.getWriter().write(" Submit quiz to be implemented!");
 				response.setContentType("application/json");
 				response.setStatus(201);
 				break;
-
+			default:
+				response.getWriter().write("Welcome as a to our site. You login as a regular user.");
 			}
 		}
 	}

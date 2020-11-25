@@ -129,6 +129,31 @@ public class QuestionDAOImpl implements QuestionDAO {
 
 		return ques;
 	}
+	public Question getQuestionByQuestion(String question) {
+		Question ques = null;
+
+		try {
+			connection = DAOUtilities.getConnection();
+			String sql = "SELECT * FROM questions WHERE question = ?";
+			stmt = connection.prepareStatement(sql);
+
+			stmt.setString(1, question);
+
+			ResultSet rs = stmt.executeQuery();
+
+			if (rs.next()) {
+				ques = new Question(rs.getInt("question_id"), rs.getString("question"), rs.getInt("topic_id"));
+
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeResources();
+		}
+
+		return ques;
+	}
 
 	public boolean updateQuestion(Question ques) {
 		try {
@@ -174,25 +199,7 @@ public class QuestionDAOImpl implements QuestionDAO {
 		}
 	}
 
-	// Closing all resources to prevent memory leaks.
-	// Ideally, you really want to close them in the reverse-order you open them
-	private void closeResources() {
-		try {
-			if (stmt != null)
-				stmt.close();
-		} catch (SQLException e) {
-			System.out.println("Could not close statement!");
-			e.printStackTrace();
-		}
-
-		try {
-			if (connection != null)
-				connection.close();
-		} catch (SQLException e) {
-			System.out.println("Could not close connection!");
-			e.printStackTrace();
-		}
-	}
+	
 
 	public List<Question> getAllQuestionByTopicId(int sub_topic_id) {
 		List<Question> questions = new ArrayList<Question>();
@@ -230,5 +237,24 @@ public class QuestionDAOImpl implements QuestionDAO {
 		// return the list of questions objects populated by the DB.
 		return questions;
 	}
+	// Closing all resources to prevent memory leaks.
+		// Ideally, you really want to close them in the reverse-order you open them
+		private void closeResources() {
+			try {
+				if (stmt != null)
+					stmt.close();
+			} catch (SQLException e) {
+				System.out.println("Could not close statement!");
+				e.printStackTrace();
+			}
+
+			try {
+				if (connection != null)
+					connection.close();
+			} catch (SQLException e) {
+				System.out.println("Could not close connection!");
+				e.printStackTrace();
+			}
+		}
 
 }

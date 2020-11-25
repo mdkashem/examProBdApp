@@ -24,6 +24,10 @@ This product is a web application intended to require any device that support we
     - to login as admin role
 - GET: /user/all
     - to see all existing users 
+- GET: /user?id=
+    - find user by their id 
+- GET: /subject/all
+    - to see all subject
 - POST: /user/create
     - to create new user 
 - POST: /quiz/create
@@ -34,9 +38,13 @@ This product is a web application intended to require any device that support we
 - POST: /login 
     - to login as a regular user
 - GET: /take/quiz
-    - to take a exam 
+    - to take an exam 
 - POST: /submit/quiz
     - to submit the quiz with the selected answers
+- GET: /user/info
+    - to user's information 
+- GET: /logout
+    - to logout 
 # DATABASE TABLES 
 ![](./images/data_table.PNG)
 

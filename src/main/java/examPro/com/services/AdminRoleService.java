@@ -126,4 +126,7 @@ public class AdminRoleService {
 			return "User informations has been updated";
 		}
 	}
+	public User findUserById(int id) {
+		return DAOUtilities.getUserDAO().getUserByID(id);
+	}
 }
