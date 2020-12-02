@@ -19,7 +19,7 @@ This product is a web application intended to require any device that support we
     - user can take quiz 
     - submit selected answer
     - update his information 
-## End Points for admin role
+## End Points for admin roles
 - POST: / login
     - to login as admin role
 - GET: /user/all
